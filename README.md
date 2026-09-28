@@ -46,7 +46,25 @@ The application will allow users to select a pricing model, enter the required p
 As additional models and features are implemented, they will be integrated into the web application.
 
 ## Project Structure
-
+'''text
+options-pricing/
+│
+├── include/
+│   └── black_scholes/
+│       └── black_scholes.h
+│
+├── src/
+│   ├── binomial_tree/
+│   ├── black_scholes/
+│   │   └── black_scholes.cpp
+│   ├── monte_carlo/
+│   └── trinomial_tree/
+│
+├── web/
+│
+├── .gitignore
+└── README.md
+'''
 ## Technology
 * C++
 * Standard C++ Library
