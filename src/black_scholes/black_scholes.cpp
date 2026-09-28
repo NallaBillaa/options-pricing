@@ -1,45 +1,39 @@
-#include <iostream>
+#include <black_scholes.h>
 #include <cmath>
 
-double normalcdf(double x){
-    return .5*(std::erfc(-x/std::sqrt(2)));;
+double normal_cdf(double x)
+{
+    return 0.5 * std::erfc(-x / std::sqrt(2));
 }
 
-int main()
+double calculate_d1(double S, double K, double T, double r, double sigma)
 {
-    double s,k,t,r,sigma;
-    std::cin >> s >> k >> t >> r >> sigma;
-    double d1,d2,n_d1,n_d2,n_negative_d1,n_negative_d2,callprice,putprice;
-    
-    d1 = (std::log(s / k)+(r + sigma * sigma / 2) * t) / (sigma * std::sqrt(t));
-    d2 = d1 - sigma * std::sqrt(t);
+    return (std::log(S / K) + (r + sigma * sigma / 2) * T) / (sigma * std::sqrt(T));
+}
 
-    n_d1 = normalcdf(d1);
-    n_d2 = normalcdf(d2);
-    n_negative_d1 = normalcdf(-d1);
-    n_negative_d2 = normalcdf(-d2);
+double calculate_d2(double d1, double T, double sigma)
+{
+    return d1 - sigma * std::sqrt(T);
+}
 
-    callprice = s * n_d1 - k * std::exp(-r * t) * n_d2;
-    putprice = k * std::exp(-r * t) * n_negative_d2 - s * n_negative_d1;
+double call_price(double S, double K, double T, double r, double sigma)
+{
+    double d1 = calculate_d1(S, K, T, r, sigma);
+    double d2 = calculate_d2(d1, T, sigma);
 
-    std::cout << "INPUT VALUES\n";
-    std::cout << "Stock Price = " << s << "\n";
-    std::cout << "Strike Price = " << k << "\n";
-    std::cout << "Time of Expiration = " << t << "\n";
-    std::cout << "Risk Free Rate = " << r << "\n";
-    std::cout << "Volatility = " << sigma << "\n";
+    double n_d1 = normal_cdf(d1);
+    double n_d2 = normal_cdf(d2);
 
-    std::cout << "\nCALCULATED VALUES:\n";
-    std::cout << "d1 = " << d1 << "\n";
-    std::cout << "d2 = " << d2 << "\n";
-    std::cout << "n(d1) = " << n_d1 << "\n";
-    std::cout << "n(d2) = " << n_d2 << "\n";
-    std::cout << "n(-d1) = " << n_negative_d1 << "\n";
-    std::cout << "n(-d2) = " << n_negative_d2 << "\n";
+    return S * n_d1 - K * std::exp(-r * T) * n_d2;
+}
 
-    std::cout << "\nOPTION PRICES:\n";
-    std::cout << "Call Price = " << callprice << "\n";
-    std::cout << "Put Price = " << putprice << "\n";
+double put_price(double S, double K, double T, double r, double sigma)
+{
+    double d1 = calculate_d1(S, K, T, r, sigma);
+    double d2 = calculate_d2(d1, T, sigma);
 
-    return 0;
+    double n_negative_d1 = normal_cdf(-d1);
+    double n_negative_d2 = normal_cdf(-d2);
+
+    return K * std::exp(-r * T) * n_negative_d2 - S * n_negative_d1;
 }
