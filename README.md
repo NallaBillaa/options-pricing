@@ -46,7 +46,7 @@ The application will allow users to select a pricing model, enter the required p
 As additional models and features are implemented, they will be integrated into the web application.
 
 ## Project Structure
-'''text
+```text
 options-pricing/
 │
 ├── include/
@@ -64,7 +64,7 @@ options-pricing/
 │
 ├── .gitignore
 └── README.md
-'''
+```
 ## Technology
 * C++
 * Standard C++ Library
