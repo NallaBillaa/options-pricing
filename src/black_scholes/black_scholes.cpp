@@ -11,8 +11,9 @@ double calculate_d1(double s, double k, double t, double r, double sigma)
     return (std::log(s / k) + (r + sigma * sigma / 2) * t) / (sigma * std::sqrt(t));
 }
 
-double calculate_d2(double d1, double t, double sigma)
+double calculate_d2(double s, double k, double t, double r, double sigma)
 {
+    double d1 = calculate_d1(s,k,t,r,sigma);
     return d1 - sigma * std::sqrt(t);
 }
 
