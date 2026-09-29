@@ -1,8 +1,9 @@
-#ifndef greeks
-#define greeks
+#ifndef greeks_h
+#define greeks_h
 
-double call_delta(double s, double k, double t, double r, double sigma){
-    double d1 = calculate_d1(s,k,t,r,sigma);
-}
+#include <black_scholes.h>
+
+double call_delta(double s, double k, double t, double r, double sigma);
+double put_delta(double s, double k, double t, double r, double sigma);
 
 #endif

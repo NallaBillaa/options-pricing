@@ -6,34 +6,34 @@ double normal_cdf(double x)
     return 0.5 * std::erfc(-x / std::sqrt(2));
 }
 
-double calculate_d1(double S, double K, double T, double r, double sigma)
+double calculate_d1(double s, double k, double t, double r, double sigma)
 {
-    return (std::log(S / K) + (r + sigma * sigma / 2) * T) / (sigma * std::sqrt(T));
+    return (std::log(s / k) + (r + sigma * sigma / 2) * t) / (sigma * std::sqrt(t));
 }
 
-double calculate_d2(double d1, double T, double sigma)
+double calculate_d2(double d1, double t, double sigma)
 {
-    return d1 - sigma * std::sqrt(T);
+    return d1 - sigma * std::sqrt(t);
 }
 
-double call_price(double S, double K, double T, double r, double sigma)
+double call_price(double s, double k, double t, double r, double sigma)
 {
-    double d1 = calculate_d1(S, K, T, r, sigma);
-    double d2 = calculate_d2(d1, T, sigma);
+    double d1 = calculate_d1(s, k, t, r, sigma);
+    double d2 = calculate_d2(d1, t, sigma);
 
     double n_d1 = normal_cdf(d1);
     double n_d2 = normal_cdf(d2);
 
-    return S * n_d1 - K * std::exp(-r * T) * n_d2;
+    return s * n_d1 - k * std::exp(-r * t) * n_d2;
 }
 
-double put_price(double S, double K, double T, double r, double sigma)
+double put_price(double s, double k, double t, double r, double sigma)
 {
-    double d1 = calculate_d1(S, K, T, r, sigma);
-    double d2 = calculate_d2(d1, T, sigma);
+    double d1 = calculate_d1(s, k, t, r, sigma);
+    double d2 = calculate_d2(d1, t, sigma);
 
     double n_negative_d1 = normal_cdf(-d1);
     double n_negative_d2 = normal_cdf(-d2);
 
-    return K * std::exp(-r * T) * n_negative_d2 - S * n_negative_d1;
+    return k * std::exp(-r * t) * n_negative_d2 - s * n_negative_d1;
 }
