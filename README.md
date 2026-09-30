@@ -8,15 +8,14 @@ The project is being developed as a web application where users can select an op
 The Black–Scholes model is used to calculate the theoretical price of European style options. It is based on geometric Brownian motion with constant volatility and a constant risk-free interest rate.
 #### Implemented Features
 * Call & Put Pricing.
-
-#### Future Planned Features
 * Greeks
   * Delta
   * Gamma
   * Theta
   * Vega
-  * Rho
+  * Rho 
 * Implied Volatility
+#### Future Planned Features
 * Dividend Yield
 * Call-Put Parity
 * Payoff & Profit Analysis
